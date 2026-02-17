@@ -1,0 +1,21 @@
+:root {
+  --vibrant-coral: #ff595eff;
+  --golden-pollen: #ffca3aff;
+  --yellow-green: #8ac926ff;
+  --steel-blue: #1982c4ff;
+  --dusty-grape: #6a4c93ff;
+
+  --color-1: var(--steel-blue);
+  --color-2: var(--yellow-green);
+  --color-3: var(--vibrant-coral);
+  --color-4: var(--dusty-grape);
+  --color-5: var(--golden-pollen);
+
+  --light: #fff;
+  --light-grey: #eee;
+  --mid: #ddd;
+  --dark: #333;
+
+  --font-primary: 'Open Sans';
+  --font-heading: 'Pacifico';
+}
