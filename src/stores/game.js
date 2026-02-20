@@ -5,8 +5,9 @@ import { defineStore } from 'pinia'
 export const useGameStore = defineStore('game', () => {
   const board = ref([])
   const totalFlagged = computed(() => board.value.filter((c) => c.isFlagged).length)
+  const totalRevealed = computed(() => board.value.filter((c) => c.isRevealed).length)
   const hasLost = computed(() => board.value.filter((c) => c.isRevealed && c.isMine).length !== 0)
-  const hasWon = computed(() => board.value.filter((c) => !c.isRevealed).length === 0)
+  const hasWon = computed(() => board.value.filter((c) => c.isRevealed && !c.isMine).length === board.value.length - totalMines.value)
 
   // Settings
   const difficulty = ref('beginner')
@@ -110,7 +111,7 @@ export const useGameStore = defineStore('game', () => {
   function revealCell(cell) {
     if (!cell.isRevealed) {
       board.value[cell.index].isRevealed = true
-      if (!cell.adjacentMines) {
+      if (!cell.adjacentMines && !cell.isMine) {
         const adjacentCells = getAdjacentIndexes(cell)
         for (let i = 0; i < adjacentCells.length; i++) {
           revealCell(board.value[adjacentCells[i]])
@@ -136,6 +137,7 @@ export const useGameStore = defineStore('game', () => {
     rows,
     totalFlagged,
     totalMines,
+    totalRevealed,
     generateBoard,
     revealCell,
     setDifficulty,

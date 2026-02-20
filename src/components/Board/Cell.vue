@@ -7,14 +7,21 @@ defineProps({
   cell: {
     type: Object,
     required: true,
+  },
+  revealAll: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
 
 <template>
-  <div class="cell">
-    <template v-if="cell.isRevealed">
-      <IconMine v-if="cell.isMine" />
+  <div :class="['cell', {oops: cell.isRevealed && cell.isMine}]">
+    <template v-if="cell.isRevealed || revealAll">
+      <IconMine
+        v-if="cell.isMine"
+        class="icon-mine"
+      />
       <span v-else-if="cell.adjacentMines" :class="`number number-${cell.adjacentMines}`">
         {{ cell.adjacentMines }}
       </span>
@@ -44,6 +51,10 @@ defineProps({
   font-size: 2rem;
 }
 
+.cell.oops {
+  background-color: var(--vibrant-coral);
+}
+
 .number {
   color: var(--color-5);
   font-weight: bold;
@@ -63,6 +74,10 @@ defineProps({
 
 .number-4 {
   color: var(--color-4);
+}
+
+.icon-mine {
+  width: 40px;
 }
 
 .icon-flag {
