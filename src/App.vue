@@ -3,6 +3,7 @@
 
   import Board from './components/Board/Board.vue'
   import Button from './components/elements/Button.vue'
+  import Difficulty from './components/Board/Difficulty.vue'
   import Header from './components/Header/Header.vue'
   import { useGameStore } from './stores/game'
 
@@ -16,6 +17,11 @@
     game.toggleFlag(cell)
   }
 
+  function changeDifficulty(difficulty) {
+    game.setDifficulty(difficulty)
+    game.generateBoard(game.totalMines)
+  }
+
   onMounted(() => {
     game.generateBoard(game.totalMines)
   })
@@ -24,8 +30,13 @@
 <template>
   <Header />
   <main>
+    <Difficulty
+      :initial-value="game.difficulty"
+      @change="changeDifficulty"
+    />
     <Board
       :board="game.board"
+      :difficulty="game.difficulty"
       :has-lost="game.hasLost"
       :has-won="game.hasWon"
       :reveal-all="game.hasLost || game.hasWon"
@@ -42,5 +53,6 @@
 .reset {
   display: flex;
   justify-content: center;
+  padding: 0 0 40px;
 }
 </style>

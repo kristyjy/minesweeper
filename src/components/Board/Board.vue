@@ -7,6 +7,10 @@ defineProps({
     type: Array,
     required: true,
   },
+  difficulty: {
+    type: String,
+    default: 'beginner'
+  },
   hasLost: {
     type: Boolean,
     default: false
@@ -18,14 +22,6 @@ defineProps({
   revealAll: {
     type: Boolean,
     default: false
-  },
-  rows: {
-    type: Number,
-    default: 9
-  },
-  cols: {
-    type: Number,
-    default: 9
   }
 })
 </script>
@@ -33,7 +29,7 @@ defineProps({
 <template>
   <div class="grid-container">
     <div class="grid-wrap">
-      <div class="grid">
+      <div :class="['grid', difficulty]">
         <Cell
           v-for="cell in board"
           :key="cell.index"
@@ -68,5 +64,13 @@ defineProps({
   display: inline-grid;
   grid-template-columns: repeat(9, 50px);
   gap: 1px;
+}
+
+.intermediate {
+  grid-template-columns: repeat(16, 50px);
+}
+
+.expert {
+  grid-template-columns: repeat(30, 50px);
 }
 </style>

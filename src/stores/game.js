@@ -12,6 +12,10 @@ export const useGameStore = defineStore('game', () => {
   // Settings
   const difficulty = ref('beginner')
   const rows = computed(() => {
+    if (difficulty.value === 'beginner') return 9
+    return 16
+  })
+  const cols = computed(() => {
     switch(difficulty.value) {
       case 'beginner':
         return 9
@@ -19,10 +23,6 @@ export const useGameStore = defineStore('game', () => {
         return 16
     }
     return 30
-  })
-  const cols = computed(() => {
-    if (difficulty.value === 'beginner') return 9
-    return 16
   })
   const totalMines = computed(() => {
     switch(difficulty.value) {
@@ -132,6 +132,7 @@ export const useGameStore = defineStore('game', () => {
   return {
     board,
     cols,
+    difficulty,
     hasLost,
     hasWon,
     rows,
